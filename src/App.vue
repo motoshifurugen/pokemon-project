@@ -1,22 +1,25 @@
 <template>
-<div>
-
+<html>
+<head>
+  <meta name="viewport" content="width=device-width">
+  <title>pokemon</title>
+</head>
+<body>
   <div id="app">
-
-  <!-- <Attribute />
-  <Region /> -->
-  <Monster />
-
+    <router-view/>
+   <!-- <Monster />
+   <Monster2 /> -->
   </div>
-</div>
+</body>
+</html>
 </template>
 
 <script>
-// import Vue from 'vue';
-// import axios from "axios";
-// import Attribute from "@/components/Attribute";
-// import Region from "@/components/Region";
-import Monster from "@/components/Monster";
+
+// import Monster from "@/components/Monster"; 
+// import Monster2 from "@/components/Monster2";
+
+
 
 export default {
   data() {
@@ -24,51 +27,10 @@ export default {
      
     };
   },
-  // mounted() {
-  //   this.find();
-  // },
-  // methods: {
-  //   async find() {
-  //     const url = monsUrl;
-  //     const res = await axios.get(url);
-  //     this.items = res.data;
-  //   },
-    // async put() {
-    //   const params = { 
-    //       name: this.name, 
-    //       attribute: this.attribute,
-    //       region: this.region,
-    //       size: this.size,
-    //       weight: this.weight,
-    //       attack_name: this.attack_name,
-    //       attack_description: this.attack_description
-    //     };
-    //   const res = await axios.post(monsUrl, params);
-    //   this.find();
-    // }
-  //   async update(i) {
-  //     const url = monsUrl + '/' + i;
-  //     const params = { 
-  //       name: this.name, 
-  //       // attribute: attribute.attribute,
-  //       // region: region.regions,
-  //       // size: this.size,
-  //       // weight: this.weight,
-  //       // attack_name: this.attack_name,
-  //       // attack_description: this.attack_description 
-  //       };
-  //     const res = await axios.put(url, params);
-  //     this.find();
-  //   },
-  //   async del(i) {
-  //     const url = monsUrl + '/' + i;
-  //     const res = await axios.delete(url);
-  //     this.find();
-  //   },
+ 
   components: {
-    // Attribute,
-    // Region,
-    Monster,
+    // Monster, 
+    // Monster2
   },
 };
 </script>

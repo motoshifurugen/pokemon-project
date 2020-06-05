@@ -1,7 +1,8 @@
 <template>
 <div>
   <div class="container">
-    <!-- <div class="createform">
+      <router-link to="/monster">Monsterへ</router-link>
+    <div class="createform">
     <div class="create name">
       <dt>ポケモンの名前</dt>
       <dd><input type="text" v-model="name"></dd>
@@ -37,10 +38,9 @@
     </div>
 
   <input class="btn btn-danger" type="button" @click="put()" value="追加する">
-    </div> -->
-    <router-link to="/monster2">Monster2へ</router-link>
+    </div>
 
-  <table class="table" border="3" v-if="items">
+  <!-- <table class="table" border="3" v-if="items">
     <thead class="thead-dark">
     <tr>
       <th>名前</th>
@@ -76,7 +76,7 @@
       <td class="sptd"><input class="btn btn-success" type="button" @click="del(item.id)" value="野生に返す"></td>
     </tr>
   </table>
-  <div>{{ attribute.id }}</div>
+  <div>{{ attribute.id }}</div> -->
   </div>
 </div>
 </template>
@@ -119,33 +119,34 @@ export default {
           const monsres = await axios.get(monsurl);
           this.items = monsres.data;
       },
-      // async put() { 
-      //     const params = { 
-      //       name: this.name,
-      //       attribute_id: this.attribute_id,
-      //       region_id: this.region_id,
-      //       size: this.size,
-      //       weight: this.weight,
-      //       attack_name: this.attack_name,
-      //       attack_description: this.attack_description
-      //     };
-      //     const monsres = await axios.post(monsUrl, params); // eslint-disable-line no-unused-vars
-      //     this.find();
-      //  },
-      //  async update(i) {
-      //   const url = monsUrl + '/' + i;
-      //  const params = { 
-      //       name: this.name,
-      //       attribute_id: this.attribute_id,
-      //       region_id: this.region_id,
-      //       size: this.size,
-      //       weight: this.weight,
-      //       attack_name: this.attack_name,
-      //       attack_description: this.attack_description
-      //   };
-      //   const res = await axios.put(url, params); // eslint-disable-line no-unused-vars
-      // this.find();
-      // },
+      async put() { 
+          const params = { 
+            name: this.name,
+            attribute_id: this.attribute_id,
+            region_id: this.region_id,
+            size: this.size,
+            weight: this.weight,
+            attack_name: this.attack_name,
+            attack_description: this.attack_description
+          };
+          const monsres = await axios.post(monsUrl, params); // eslint-disable-line no-unused-vars
+          this.find();
+          this.$router.push('/monster')
+       },
+       async update(i) {
+        const url = monsUrl + '/' + i;
+       const params = { 
+            name: this.name,
+            attribute_id: this.attribute_id,
+            region_id: this.region_id,
+            size: this.size,
+            weight: this.weight,
+            attack_name: this.attack_name,
+            attack_description: this.attack_description
+        };
+        const res = await axios.put(url, params); // eslint-disable-line no-unused-vars
+      this.find();
+      },
       async del(i) {
       const url = monsUrl + '/' + i;
       const res = await axios.delete(url); // eslint-disable-line no-unused-vars
