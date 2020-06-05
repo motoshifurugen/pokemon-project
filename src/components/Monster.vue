@@ -74,7 +74,7 @@
       <td>{{ item.attack_name }}</td>
       <td>{{ item.attack_description }}</td>
 
-      <td class="sptd"><a :href="'/monster/' + item.id"><input class="btn btn-outline-danger" type="button" value="書き換える"></a></td>
+      <td class="sptd"><input class="btn btn-outline-danger" type="button" @click="show(item.id)" value="見る"></td>
       <td class="sptd"><input class="btn btn-success" type="button" @click="del(item.id)" value="野生に返す"></td>
     </tr>
   </table>
@@ -122,17 +122,8 @@ export default {
       },
       async show(i) {
         const url = monsUrl + '/' + i;
-        const params = { 
-            name: this.name,
-            attribute_id: this.attribute_id,
-            region_id: this.region_id,
-            size: this.size,
-            weight: this.weight,
-            attack_name: this.attack_name,
-            attack_description: this.attack_description
-        };
-        const res = await axios.put(url, params); // eslint-disable-line no-unused-vars
-        this.find();
+        const res = await axios.get(url); // eslint-disable-line no-unused-vars
+        this.items = res.data;
       },
       // async put() { 
       //     const params = { 
