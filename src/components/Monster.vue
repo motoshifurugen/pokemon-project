@@ -56,7 +56,9 @@
     </thead>
 
     <tr v-for="(item) in items" :key="item.id">
+      <!-- <a :href="'/monsters/' + item.id"> -->
       <td>{{ item.name }}</td>
+      <!-- </a> -->
       <td>
         <div v-for="(attribute) in attributes" :key="attribute.id">
           <td  v-if="item.attribute_id === attribute.id">{{ attribute.name }}</td>
@@ -72,11 +74,10 @@
       <td>{{ item.attack_name }}</td>
       <td>{{ item.attack_description }}</td>
 
-      <td class="sptd"><input class="btn btn-outline-danger" type="button" @click="update(item.id)" value="書き換える"></td>
+      <td class="sptd"><a :href="'/monster/' + item.id"><input class="btn btn-outline-danger" type="button" value="書き換える"></a></td>
       <td class="sptd"><input class="btn btn-success" type="button" @click="del(item.id)" value="野生に返す"></td>
     </tr>
   </table>
-  <div>{{ attribute.id }}</div>
   </div>
 </div>
 </template>
@@ -118,6 +119,20 @@ export default {
           const monsurl = monsUrl;
           const monsres = await axios.get(monsurl);
           this.items = monsres.data;
+      },
+      async show(i) {
+        const url = monsUrl + '/' + i;
+        const params = { 
+            name: this.name,
+            attribute_id: this.attribute_id,
+            region_id: this.region_id,
+            size: this.size,
+            weight: this.weight,
+            attack_name: this.attack_name,
+            attack_description: this.attack_description
+        };
+        const res = await axios.put(url, params); // eslint-disable-line no-unused-vars
+        this.find();
       },
       // async put() { 
       //     const params = { 
