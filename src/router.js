@@ -23,7 +23,7 @@ export default new Router({
         path: '/monster/:id',
         name: 'show',
         component: Show,
-        props: route => ({ id: Number(route.params.id)})
+        // props: route => ({ id: Number(route.params.id)})
     }
   ]
 })
