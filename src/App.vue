@@ -6,6 +6,7 @@
 </head>
 <body>
   <div id="app">
+    <Header />
     <router-view/>
    <!-- <Monster />
    <Monster2 /> -->
@@ -16,10 +17,7 @@
 
 <script>
 
-// import Monster from "@/components/Monster"; 
-// import Monster2 from "@/components/Monster2";
-
-
+import Header from "@/components/Header";
 
 export default {
   data() {
@@ -29,8 +27,7 @@ export default {
   },
  
   components: {
-    // Monster, 
-    // Monster2
+   Header
   },
 };
 </script>

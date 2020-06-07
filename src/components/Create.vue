@@ -161,7 +161,7 @@ export default {
 <style scoped>
 .container {
   background-color: #ffd400;
-  padding: 2%;
+  padding: 100px 20px;
 }
 
 table {

@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Top from '@/components/Top' 
 import Create from '@/components/Create'
 import Show from '@/components/Show'
+import  Home from '@/components/Home'
 
 Vue.use(Router)
 
@@ -23,7 +24,11 @@ export default new Router({
         path: '/show/:showId',
         name: 'show',
         component: Show,
-        // props: route => ({ id: Number(route.params.id)})
+    },
+    {
+      path: '/home',
+      name: 'home',
+      components: Home
     }
   ]
 })
