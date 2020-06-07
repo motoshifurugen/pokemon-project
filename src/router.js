@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Monster from '@/components/Monster' 
-import Monster2 from '@/components/Monster2'
+import Top from '@/components/Top' 
+import Create from '@/components/Create'
 import Show from '@/components/Show'
 
 Vue.use(Router)
@@ -10,17 +10,17 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/monster',
-      name: 'Monster', 
-      component: Monster
+      path: '/top',
+      name: 'Top', 
+      component: Top
     },
     {
-        path: '/monster2',
-        name: 'Monster2',
-        component: Monster2
+        path: '/create',
+        name: 'Create',
+        component: Create
     },
     {
-        path: '/monster/:id',
+        path: '/show/:showId',
         name: 'show',
         component: Show,
         // props: route => ({ id: Number(route.params.id)})

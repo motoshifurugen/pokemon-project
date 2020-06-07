@@ -1,12 +1,46 @@
 <template>
 <div>
   <div class="container">
-   
-    <router-link to="/monster2">Monster2へ</router-link>
+      <router-link to="/top">トップページへ</router-link>
+    <div class="createform">
+    <div class="create name">
+      <dt>ポケモンの名前</dt>
+      <dd><input type="text" v-model="name"></dd>
+    </div>
+    <div class="create attribute">
+      <dt>タイプ</dt>
+      <dd><select v-model="attribute_id">
+            <option v-for="(attribute) in attributes" :value="attribute.id" :key="attribute.id">{{ attribute.name }}</option>
+      </select></dd>
+    </div>
+    <div class="create region">
+      <dt>生息地</dt>
+      <dd><select v-model="region_id">
+            <option v-for="(region) in regions" :value="region.id" :key="region.id">{{ region.name }}
+            </option>
+      </select>地方</dd>
+    </div>
+    <div class="create size">
+      <dt>高さ</dt>
+      <dd><input type="number" v-model="size">m</dd>
+    </div>
+    <div class="create weight">
+      <dt>重さ</dt>
+      <dd><input type="number" v-model="weight">kg</dd>
+    </div>
+    <div class="create attackname">
+      <dt>技の説明</dt>
+      <dd><input type="text" v-model="attack_name"></dd>
+    </div>
+    <div class="create attackdescription">
+      <dt>技の説明</dt>
+      <dd><textarea type="text" v-model="attack_description"></textarea></dd>
+    </div>
 
-    <Show  v-bind:variable="message" />
+  <input class="btn btn-danger" type="button" @click="put()" value="追加する">
+    </div>
 
-  <table class="table" border="3" v-if="items">
+  <!-- <table class="table" border="3" v-if="items">
     <thead class="thead-dark">
     <tr>
       <th>名前</th>
@@ -22,9 +56,7 @@
     </thead>
 
     <tr v-for="(item) in items" :key="item.id">
-      <!-- <a :href="'/monsters/' + item.id"> -->
       <td>{{ item.name }}</td>
-      <!-- </a> -->
       <td>
         <div v-for="(attribute) in attributes" :key="attribute.id">
           <td  v-if="item.attribute_id === attribute.id">{{ attribute.name }}</td>
@@ -40,20 +72,17 @@
       <td>{{ item.attack_name }}</td>
       <td>{{ item.attack_description }}</td>
 
-      <td class="sptd"><Show ref="taro" /><button @click="callChildMethod01">子ども呼び出し①</button></td>
-      <td class="sptd"><input type="text" v-model="kozukai"><button @click="callChildMethod02">子ども呼び出し②</button></td>
+      <td class="sptd"><input class="btn btn-outline-danger" type="button" @click="update(item.id)" value="書き換える"></td>
+      <td class="sptd"><input class="btn btn-success" type="button" @click="del(item.id)" value="野生に返す"></td>
     </tr>
   </table>
-  <input class="btn btn-outline-danger" type="button" @click="show(item.id)" value="見る">
-  <input class="btn btn-success" type="button" @click="del(item.id)" value="野生に返す">
+  <div>{{ attribute.id }}</div> -->
   </div>
 </div>
 </template>
 
 <script>
 import axios from "axios";
-import Show from './Show.vue';
-
 const monsUrl ='http://localhost:8080/api/monsters';
 const attributeUrl ='http://localhost:8080/api/attributes';
 const regionUrl ='http://localhost:8080/api/regions';
@@ -61,7 +90,6 @@ const regionUrl ='http://localhost:8080/api/regions';
 export default {
     data() {
         return {
-            kozukai: 0,
             attribute: '2',
             attributes: [],
             region: '2',
@@ -91,24 +119,20 @@ export default {
           const monsres = await axios.get(monsurl);
           this.items = monsres.data;
       },
-      async show(i) {
-        const url = monsUrl + '/' + i;
-        const res = await axios.get(url); // eslint-disable-line no-unused-vars
-        this.items = res.data;
-      },
-      // async put() { 
-      //     const params = { 
-      //       name: this.name,
-      //       attribute_id: this.attribute_id,
-      //       region_id: this.region_id,
-      //       size: this.size,
-      //       weight: this.weight,
-      //       attack_name: this.attack_name,
-      //       attack_description: this.attack_description
-      //     };
-      //     const monsres = await axios.post(monsUrl, params); // eslint-disable-line no-unused-vars
-      //     this.find();
-      //  },
+      async put() { 
+          const params = { 
+            name: this.name,
+            attribute_id: this.attribute_id,
+            region_id: this.region_id,
+            size: this.size,
+            weight: this.weight,
+            attack_name: this.attack_name,
+            attack_description: this.attack_description
+          };
+          const monsres = await axios.post(monsUrl, params); // eslint-disable-line no-unused-vars
+          this.find();
+          this.$router.push('/top')
+       },
       //  async update(i) {
       //   const url = monsUrl + '/' + i;
       //  const params = { 
@@ -123,14 +147,11 @@ export default {
       //   const res = await axios.put(url, params); // eslint-disable-line no-unused-vars
       // this.find();
       // },
-      async del(i) {
-      const url = monsUrl + '/' + i;
-      const res = await axios.delete(url); // eslint-disable-line no-unused-vars
-      this.find();
-      }
-    },
-    components: {
-      Show
+      // async del(i) {
+      // const url = monsUrl + '/' + i;
+      // const res = await axios.delete(url); // eslint-disable-line no-unused-vars
+      // this.find();
+      // }
     }
 }
 
