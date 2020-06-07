@@ -1,7 +1,7 @@
 <template>
 <div>
   <div class="container">
-      <router-link to="/top">トップページへ</router-link>
+
     <div class="createform">
     <div class="create name">
       <dt>ポケモンの名前</dt>
@@ -77,6 +77,7 @@
     </tr>
   </table>
   <div>{{ attribute.id }}</div> -->
+  <router-link to="/top" class="btn btn-outline-primary">戻る</router-link>
   </div>
 </div>
 </template>

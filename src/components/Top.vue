@@ -1,6 +1,8 @@
 <template>
 <div>
   <div class="container">
+
+    <h3>悦史のポケモン図鑑</h3>
    
    <router-link to="/create" class="btn btn-danger">新しいポケモンを作る</router-link>
 
@@ -188,6 +190,10 @@ td {
 .btn-danger{
   float: right;
   margin: 10px;
+}
+
+h3 {
+  float: left;
 }
 
 </style>

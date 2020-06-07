@@ -2,8 +2,6 @@
 <div>
   <div class="container">
    
-    <router-link to="/top">トップページへ</router-link>
-
   <table class="table" border="3" v-if="item">
     <thead class="thead-dark">
     <tr>
@@ -77,8 +75,10 @@
       <dt>技の説明</dt>
       <dd><textarea type="text" v-model="attack_description"></textarea></dd>
     </div>
-    <input class="btn btn-outline-danger" type="button" @click="update(item.id)" value="書き換える">
+    <input class="btn btn-danger" type="button" @click="update(item.id)" value="書き換える">
     </div>
+
+    <router-link to="/top" class="btn btn-outline-primary">戻る</router-link>
 
   </div>
 </div>
@@ -206,7 +206,7 @@ table {
   width:300px;
 }
 
-.btn-outline-danger {
+.btn-danger {
   margin-bottom: 50px;
   margin-left: 140px;
   width: 180px;
