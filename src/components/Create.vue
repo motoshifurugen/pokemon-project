@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div class="container">
+  <div class="container-fluid">
 
     <div class="createform">
     <div class="create name">
@@ -29,7 +29,7 @@
       <dd><input type="number" v-model="weight">kg</dd>
     </div>
     <div class="create attackname">
-      <dt>技の説明</dt>
+      <dt>技の名前</dt>
       <dd><input type="text" v-model="attack_name"></dd>
     </div>
     <div class="create attackdescription">
@@ -159,9 +159,9 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.container-fluid {
   background-color: #ffd400;
-  padding: 100px 20px;
+  padding: 2%;
 }
 
 table {

@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div class="container">
+  <div class="container-fluid">
    
   <table class="table" border="3" v-if="item">
     <thead class="thead-dark">
@@ -42,38 +42,44 @@
   </table>
 
   <div class="createform">
-    <div class="create name">
-      <dt>ポケモンの名前</dt>
-      <dd><input type="text" v-bind:value="item.name" v-on:input="name = $event.target.value"></dd>
-    </div>
     <div class="create attribute">
       <dt>タイプ</dt>
-      <dd><select v-bind:value="item.attribute_id" v-on:input="attribute_id = $event.target.value">
-            <option v-for="(attribute) in attributes" v-bind:value="attribute.id" :key="attribute.id">{{ attribute.name }}</option>
+      <dd><select v-model="new_attribute_id" v-on:value="attribute_id=$event.target.value">
+            <option v-for="(attribute) in attributes" :value="attribute.id" :key="attribute.id">{{ attribute.name }}</option>
       </select></dd>
     </div>
     <div class="create region">
       <dt>生息地</dt>
-      <dd><select v-bind:value="item.region_id" v-on:input="region_id = $event.target.value">
-            <option v-for="(region) in regions" v-bind:value="region.id" :key="region.id">{{ region.name }}
+      <dd><select v-model="new_region_id" v-on:value="region_id=$event.target.value">
+            <option v-for="(region) in regions" :value="region.id" :key="region.id">{{ region.name }}
             </option>
       </select>地方</dd>
+      <!-- <dd><select v-model="region_id" v-on:input="region_id = $event.target.value">
+            <option v-for="(region) in regions" v-bind:value="region.id" :key="region.id">{{ region.name }}
+            </option>
+      </select>地方</dd> -->
+    </div>
+    <div class="create name">
+      <dt>ポケモンの名前</dt>
+      <dd>
+        <input type="text" v-bind:value="item.name" v-on:input="new_name = $event.target.value">
+        </dd>
     </div>
     <div class="create size">
       <dt>高さ</dt>
-      <dd><input type="number" v-bind:value="item.size" v-on:input="size = $event.target.value">m</dd>
+      <dd><input type="number" v-bind:value="item.size" v-on:input="new_size = $event.target.value">m</dd>
     </div>
     <div class="create weight">
       <dt>重さ</dt>
-      <dd><input type="number" v-bind:value="item.weight" v-on:input="weight = $event.target.value">kg</dd>
+      <dd><input type="number" v-bind:value="item.weight" v-on:input="new_weight = $event.target.value">kg</dd>
     </div>
     <div class="create attackname">
-      <dt>技の説明</dt>
-      <dd><input type="text" v-bind:value="item.attack_name" v-on:input="attack_name = $event.target.value"></dd>
+      <dt>技の名前</dt>
+      <dd><input type="text" v-bind:value="item.attack_name" v-on:input="new_attack_name = $event.target.value"></dd>
     </div>
     <div class="create attackdescription">
       <dt>技の説明</dt>
-      <dd><textarea type="text" v-bind:value="item.attack_description" v-on:input="attack_description = $event.target.value"></textarea></dd>
+      <dd><textarea type="text" v-bind:value="item.attack_description" v-on:input="new_attack_description = $event.target.value"></textarea></dd>
     </div>
     <input class="btn btn-danger" type="button" @click="update(item.id)" value="書き換える">
     </div>
@@ -91,21 +97,29 @@ const monsUrl ='http://localhost:8080/api/monsters';
 const attributeUrl ='http://localhost:8080/api/attributes';
 const regionUrl ='http://localhost:8080/api/regions';
 
+
 export default {
     data() {
         return {
-          attribute: '',
-          attributes: [],
-          region: '2',
-          regions: [],
-          attribute_id: '2',
-          region_id: '2',
-          name: '',
-          size: '',
-          weight: '',
-          attack_name: '',
-          attack_description: '',
-          item: []
+          //  attribute: '2',
+            new_attribute_id: '2',
+            new_region_id: '2',
+            attributes: [],
+            // region: '2',
+            regions: [],
+            attribute_id: '2',
+            region_id: '2',
+            name: ' ',
+            size: '',
+            weight: '',
+            attack_name: '',
+            attack_description: '',
+            new_name: '',
+            new_size: '',
+            new_weight: '',
+            new_attack_name: '',
+            new_attack_descrioption: '',
+            item: []
        }
     },
     mounted() {
@@ -123,6 +137,7 @@ export default {
           const monsurl = monsUrl + '/' + showId;
           const monsres = await axios.get(monsurl);
           this.item = monsres.data;
+          
       },
     //   async show(i) {
     //     const url = monsUrl + '/' + i;
@@ -144,14 +159,14 @@ export default {
       //  },
        async update(i) {
         const url = monsUrl + '/' + i;
-       const params = { 
-            name: this.name,
-            attribute_id: this.attribute_id,
-            region_id: this.region_id,
-            size: this.size,
-            weight: this.weight,
-            attack_name: this.attack_name,
-            attack_description: this.attack_description
+       const params = {
+            name: this.new_name,
+            attribute_id: this.new_attribute_id,
+            region_id: this.new_region_id,
+            size: this.new_size,
+            weight: this.new_weight,
+            attack_name: this.new_attack_name,
+            attack_description: this.new_attack_description
         };
         const res = await axios.put(url, params); // eslint-disable-line no-unused-vars
       this.find();
@@ -174,9 +189,9 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.container-fluid {
   background-color: #ffd400;
-  padding: 100px 20px;
+  padding: 2%;
 }
 
 table {

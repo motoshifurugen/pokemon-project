@@ -8,6 +8,7 @@
   <div id="app">
     <Header />
     <router-view/>
+    <Footer />
    <!-- <Monster />
    <Monster2 /> -->
   </div>
@@ -18,6 +19,8 @@
 <script>
 
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+
 
 export default {
   data() {
@@ -27,7 +30,8 @@ export default {
   },
  
   components: {
-   Header
+   Header,
+   Footer
   },
 };
 </script>

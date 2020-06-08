@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div class="container">
+  <div class="container-fluid">
 
     <h3>悦史のポケモン図鑑</h3>
    
@@ -135,9 +135,9 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.container-fluid {
   background-color: #ffd400;
-  padding: 100px 20px;
+  padding: 2%;
 }
 
 table {
