@@ -16,9 +16,12 @@
     </tr>
     </thead>
 
+    <!-- <tr v-for="(item) in items" :key="item.id"> -->
     <tr>
 
+      <!-- <a :href="'/monsters/' + item.id"> -->
       <td class="name">{{ item.name }}</td>
+      <!-- </a> -->
       <td>
         <div v-for="(attribute) in attributes" :key="attribute.id">
           <td  v-if="item.attribute_id === attribute.id">{{ attribute.name }}</td>
@@ -41,16 +44,20 @@
   <div class="createform">
     <div class="create attribute">
       <dt>タイプ</dt>
-      <dd><select v-bind:value="item.attribute_id" v-on:input="new_attribute_id = $event.target.value">
+      <dd><select v-model="new_attribute_id" v-on:value="attribute_id=$event.target.value">
             <option v-for="(attribute) in attributes" :value="attribute.id" :key="attribute.id">{{ attribute.name }}</option>
       </select></dd>
     </div>
     <div class="create region">
       <dt>生息地</dt>
-      <dd><select v-bind:value="item.region_id" v-on:input="new_region_id = $event.target.value">
+      <dd><select v-model="new_region_id" v-on:value="region_id=$event.target.value">
             <option v-for="(region) in regions" :value="region.id" :key="region.id">{{ region.name }}
             </option>
       </select>地方</dd>
+      <!-- <dd><select v-model="region_id" v-on:input="region_id = $event.target.value">
+            <option v-for="(region) in regions" v-bind:value="region.id" :key="region.id">{{ region.name }}
+            </option>
+      </select>地方</dd> -->
     </div>
     <div class="create name">
       <dt>ポケモンの名前</dt>
@@ -94,22 +101,24 @@ const regionUrl ='http://localhost:8080/api/regions';
 export default {
     data() {
         return {
-            attribute_id: ' ',
+          //  attribute: '2',
+            new_attribute_id: '2',
+            new_region_id: '2',
             attributes: [],
-            region_id: ' ',
+            // region: '2',
             regions: [],
+            attribute_id: '2',
+            region_id: '2',
             name: ' ',
-            size: ' ',
-            weight: ' ',
-            attack_name: ' ',
-            attack_description: ' ',
-            new_attribute_id: ' ',
-            new_region_id: ' ',
-            new_name: ' ',
-            new_size: ' ',
-            new_weight: ' ',
-            new_attack_name: ' ',
-            new_attack_description: ' ',
+            size: '',
+            weight: '',
+            attack_name: '',
+            attack_description: '',
+            new_name: '',
+            new_size: '',
+            new_weight: '',
+            new_attack_name: '',
+            new_attack_descrioption: '',
             item: []
        }
     },
@@ -128,30 +137,28 @@ export default {
           const monsurl = monsUrl + '/' + showId;
           const monsres = await axios.get(monsurl);
           this.item = monsres.data;
+          
       },
+    //   async show(i) {
+    //     const url = monsUrl + '/' + i;
+    //     const res = await axios.get(url); // eslint-disable-line no-unused-vars
+    //     this.items = res.data;
+    //   },
+      // async put() { 
+      //     const params = { 
+      //       name: this.name,
+      //       attribute_id: this.attribute_id,
+      //       region_id: this.region_id,
+      //       size: this.size,
+      //       weight: this.weight,
+      //       attack_name: this.attack_name,
+      //       attack_description: this.attack_description
+      //     };
+      //     const monsres = await axios.post(monsUrl, params); // eslint-disable-line no-unused-vars
+      //     this.find();
+      //  },
        async update(i) {
         const url = monsUrl + '/' + i;
-        if (this.new_attibute_id === ' ') {
-          this.new_attribute_id = this.item.attribute_id
-        }
-        if (this.new_region_id === ' ') {
-          this.new_region_id = this.item.region_id
-        }
-        if (this.new_name === ' ') {
-          this.new_name = this.item.name
-        }
-        if (this.new_size === ' ') {
-          this.new_size = this.item.size
-        }
-        if (this.new_weight === ' ') {
-          this.new_weight = this.item.weight
-        }
-        if (this.new_attack_name === ' ') {
-          this.new_attack_name = this.item.attack_name
-        }
-        if (this.new_attack_description === ' ') {
-          this.new_attack_description = this.item.attack_description
-        }
        const params = {
             name: this.new_name,
             attribute_id: this.new_attribute_id,
@@ -160,7 +167,7 @@ export default {
             weight: this.new_weight,
             attack_name: this.new_attack_name,
             attack_description: this.new_attack_description
-       };
+        };
         const res = await axios.put(url, params); // eslint-disable-line no-unused-vars
       this.find();
       this.$router.push('/top')
